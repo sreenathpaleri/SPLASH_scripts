@@ -164,4 +164,12 @@ delta_z = 10.
 KPA_flux_df_22_met['Rib'] = (g*KPA_flux_df_22_met['delta_T']*delta_z)/((KPA_flux_df_22_met['Tair_10m_mean']+273.15)*(KPA_flux_df_22_met.delta_u**2+KPA_flux_df_22_met.delta_v**2))
 
 #%% plot Rib, hist
-KPA_flux_df_22_met.Rib.plot.hist(bins=100)
+ax = KPA_flux_df_22_met.Rib.plot.hist(bins=1000)
+ax.set_xlim([-10,10])
+
+KPA_flux_df_22_met['sigma_w_10_non_dim'] = (KPA_flux_df_22_met['w_var_10m']**(0.5)/KPA_flux_df_22_met['wind_speed'])
+
+ax1 = KPA_flux_df_22_met.plot.scatter(x='Rib', y='sigma_w_10_non_dim')
+#ax1.set_xscale('symlog')
+ax1.set_ylim([0,1.5])
+ax1.set_xlim([-8,5])
